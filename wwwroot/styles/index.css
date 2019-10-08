@@ -11,7 +11,33 @@ app {
 .main {
   flex: 1;
   display: flex;
+  flex-direction: row;
+}
+
+#todo-list-container {
+  flex: 1;
+  background-color: #6389df;
+  color: white;
+  padding: 2em;
+}
+
+#main-content {
+  flex: 5;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+#todo-list {
+  padding: 0;
+}
+
+.todo-item {
+  list-style: none;
+  display: flex;
+}
+
+.todo-item > p {
+  flex: 1;
 }
