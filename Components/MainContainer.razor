@@ -1,0 +1,14 @@
+<div id="main-content">
+  <h1 class="main-title">Timer</h1>
+  <div class="timer-container">
+    <Timer />
+    <div class="current-task-container">
+      <h2>@CurrentTask</h2>
+    </div>
+  </div>
+</div>
+
+@code {
+  [Parameter]
+  public string CurrentTask { get; set; }
+}

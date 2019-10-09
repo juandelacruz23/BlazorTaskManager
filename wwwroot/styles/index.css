@@ -1,6 +1,15 @@
-﻿html, body {
+﻿:root {
+  --main-color: #6389df;
+  --main-padding: 2em;
+}
+
+html, body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   margin: 0%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
 }
 
 app {
@@ -14,19 +23,17 @@ app {
   flex-direction: row;
 }
 
-#todo-list-container {
-  flex: 1;
-  background-color: #6389df;
-  color: white;
-  padding: 2em;
-}
-
-#main-content {
-  flex: 5;
+.flex-centered {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+#todo-list-container {
+  flex: 1;
+  background-color: var(--main-color);
+  color: white;
+  padding: var(--main-padding);
 }
 
 #todo-list {
@@ -40,4 +47,38 @@ app {
 
 .todo-item > p {
   flex: 1;
+}
+
+#main-content {
+  flex: 5;
+  display: flex;
+  flex-direction: column;
+  padding: var(--main-padding);
+}
+
+.timer-container {
+  flex: 1;
+  display: flex;
+}
+
+.timer {
+  flex: 5;
+}
+
+.time-container {
+  border-radius: 50%;
+  background-color: var(--main-color);
+  height: 20em;
+  width: 20em;
+  flex-direction: column;
+}
+
+.time {
+  color: white;
+  margin: 0;
+  font-size: 3em;
+}
+
+.current-task-container {
+  flex: 3;
 }
