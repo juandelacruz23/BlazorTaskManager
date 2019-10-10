@@ -1,5 +1,6 @@
 @using System.Reactive.Linq
 @implements IDisposable
+@inject IJSRuntime JSRuntime
 
 <div class="timer flex-centered">
   <span class="time-container flex-centered">
@@ -11,6 +12,9 @@
       @(isRunning ? "Stop" : "Start")
     </button>
   </span>
+  <audio id="alarm-audio" src="assets/cc-alarm.mp3">
+    Your browser does not support the <code>audio</code> element.
+  </audio>
 </div>
 
 @code {
@@ -19,10 +23,10 @@
   public IObservable<long> PomodoroObservable { get; set; } = Observable.Interval(TimeSpan.FromSeconds(1));
   public IDisposable PomodoroSubscription { get; set; }
 
-  private void IncreaseSeconds()
+  private async void IncreaseSeconds()
   {
     seconds += 1;
-    //await JSRuntime.InvokeAsync<string>("updateTitle",string.Format(@"({0}) Blazor Pomodoro", FormatSeconds(seconds)));
+    await JSRuntime.InvokeAsync<string>("updateTitle",string.Format(@"({0}) Blazor Pomodoro", FormatSeconds(seconds)));
     StateHasChanged();
   }
 
@@ -31,10 +35,10 @@
     return TimeSpan.FromSeconds(seconds).ToString(@"mm\:ss");
   }
 
-  private void OnComplete()
+  private async void OnComplete()
   {
-    //await JSRuntime.InvokeVoidAsync("playAudio");
-    //await JSRuntime.InvokeAsync<string>("updateTitle","Blazor Pomodoro");
+    await JSRuntime.InvokeVoidAsync("playAudio");
+    await JSRuntime.InvokeAsync<string>("updateTitle","Blazor Pomodoro");
     seconds = 0;
     isRunning = false;
     StateHasChanged();
