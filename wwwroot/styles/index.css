@@ -1,5 +1,6 @@
 ﻿:root {
-  --main-color: #6389df;
+  --main-color: #ee6575;
+  --secondary-color: #f9939d;
   --main-padding: 2em;
 }
 
@@ -81,4 +82,32 @@ app {
 
 .current-task-container {
   flex: 3;
+}
+
+.current-task-title {
+  color: var(--main-color);
+  border-left: 4px solid var(--main-color);
+  padding-left: 0.5em;
+}
+
+.timer-control {
+  margin-top: 1em;;
+}
+
+button {
+  border: none;
+  outline: none;
+  background-color: var(--secondary-color);
+  padding: 1em;
+  border-radius: 4pc;
+  width: 6em;
+  color: white;
+}
+
+button:active {
+  background-color: rgba(255,255,255,.08) !important;
+  color: #fff !important;
+  -webkit-box-shadow: 0 0 0 2px rgba(255,255,255,.9) inset !important;
+  box-shadow: 0 0 0 2px rgba(255,255,255,.9) inset !important;
+  outline: none;
 }
