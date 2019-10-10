@@ -1,6 +1,9 @@
+@using System.Reactive.Linq
+@implements IDisposable
+
 <div class="timer flex-centered">
   <span class="time-container flex-centered">
-    <p class="time">00:00</p>
+    <p class="time">@(FormatSeconds(seconds))</p>
     <button 
       class="timer-control" 
       @onclick="TimerControlPressed"
@@ -12,9 +15,52 @@
 
 @code {
   private bool isRunning;
+  private int seconds;
+  public IObservable<long> PomodoroObservable { get; set; } = Observable.Interval(TimeSpan.FromSeconds(1));
+  public IDisposable PomodoroSubscription { get; set; }
+
+  private void IncreaseSeconds()
+  {
+    seconds += 1;
+    //await JSRuntime.InvokeAsync<string>("updateTitle",string.Format(@"({0}) Blazor Pomodoro", FormatSeconds(seconds)));
+    StateHasChanged();
+  }
+
+  private string FormatSeconds(int seconds)
+  {
+    return TimeSpan.FromSeconds(seconds).ToString(@"mm\:ss");
+  }
+
+  private void OnComplete()
+  {
+    //await JSRuntime.InvokeVoidAsync("playAudio");
+    //await JSRuntime.InvokeAsync<string>("updateTitle","Blazor Pomodoro");
+    seconds = 0;
+    isRunning = false;
+    StateHasChanged();
+  }
 
   private void TimerControlPressed()
   {
+    if(isRunning) {
+      StopSubscription();
+    } else {
+      PomodoroSubscription = PomodoroObservable.Take(11).Subscribe(
+        x => IncreaseSeconds(),
+        err => Console.WriteLine("On error: {0}", err.Message),
+        OnComplete
+      );
+    }
     isRunning = !isRunning;
+  }
+
+  private void StopSubscription()
+  {
+    PomodoroSubscription?.Dispose();
+  }
+
+  public void Dispose()
+  {
+    StopSubscription();
   }
 }
