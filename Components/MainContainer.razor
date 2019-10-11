@@ -3,10 +3,15 @@
 @implements IObserver<TodoItem>
 
 <div id="main-content">
-  <h2 class="main-title current-task-title">@CurrentTask</h2>
-  <div class="timer-container">
-    <Timer />
-  </div>
+  @if(!string.IsNullOrEmpty(CurrentTask))
+  {
+    <h2 class="main-title current-task-title">@CurrentTask</h2>
+    <div class="timer-container">
+      <Timer />
+    </div>
+  } else {
+    <p class="no-current-task-warning">No hay ninguna tarea. ¿Por qué no agregas una?</p>
+  }
 </div>
 
 @code {
@@ -31,8 +36,7 @@
 
   public virtual void OnNext(TodoItem newCurrentTask)
   {
-    var newTitle = newCurrentTask?.Title ?? "None";
-    this.CurrentTask = newTitle;
+    this.CurrentTask = newCurrentTask?.Title ?? "";
     StateHasChanged();
   }
 
