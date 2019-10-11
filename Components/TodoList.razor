@@ -1,8 +1,45 @@
 <div id="todo-list-container">
   <h2>ToDo List</h2>
+  <div class="summary-container">
+    <span class="finished count">Completadas: (@Todos.Count(todo => todo.IsChecked))</span>
+    <span class="pending count">Pendientes: (@Todos.Count(todo => !todo.IsChecked))</span>
+  </div>
   <ul id="todo-list">
-    <TodoItem Id="1" Title="Learn another language" IsChecked="false" />
-    <TodoItem Id="2" Title="Finish Blazor sample" IsChecked="false" />
-    <TodoItem Id="3" Title="Call Lasik Vision" IsChecked="true" />
+    @foreach (var todo in Todos)
+    {
+      <li class="todo-item" id="todo-@todo.Id">
+        <p class="todo-title">@todo.Title</p>
+        <input 
+          type="checkbox" 
+          name="todo-@todo.Id" 
+          id="todo-checkobox-@todo.Id" 
+          @bind="todo.IsChecked"
+        />
+      </li>
+    }
   </ul>
 </div>
+
+@code {
+  public IList<TodoItem> Todos { get; set; } = new List<TodoItem>
+    {
+      new TodoItem
+      {
+        Id = 1,
+        IsChecked = false,
+        Title = "Learn another language"
+      },
+      new TodoItem
+      {
+        Id = 2,
+        IsChecked = false,
+        Title = "Finish Blazor sample"
+      },
+      new TodoItem
+      {
+        Id = 3,
+        IsChecked = true,
+        Title = "Call Lasik Vision"
+      },
+    };
+}

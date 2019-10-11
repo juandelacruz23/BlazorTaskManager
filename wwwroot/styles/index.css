@@ -45,10 +45,25 @@ app {
   list-style: none;
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
-.todo-item > p {
+.todo-item:hover {
+  opacity: 0.7;
+}
+
+.todo-title {
   flex: 1;
+}
+
+.count {
+  font-size: 0.7em;
+}
+
+.summary-container {
+  margin-top: 1em;
+  display: flex;
+  justify-content: space-around;
 }
 
 #main-content {
