@@ -7,6 +7,7 @@ namespace BlazorTaskManager
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<AppState, AppState>();
         }
 
         public void Configure(IComponentsApplicationBuilder app)

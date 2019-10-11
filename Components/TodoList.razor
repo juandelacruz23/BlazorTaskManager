@@ -1,3 +1,5 @@
+@inject AppState state
+
 <div id="todo-list-container">
   <h2>ToDo List</h2>
   <div class="summary-container">
@@ -8,7 +10,7 @@
     @foreach (var todo in Todos)
     {
       <li class="todo-item" id="todo-@todo.Id">
-        <p class="todo-title">@todo.Title</p>
+        <p class="todo-title" @onclick="@(e => OnSelectItem(todo))">@todo.Title</p>
         <input 
           type="checkbox" 
           name="todo-@todo.Id" 
@@ -42,4 +44,9 @@
         Title = "Call Lasik Vision"
       },
     };
+
+  private void OnSelectItem(TodoItem item)
+  {
+    state.UpdateCurrentTask(item);
+  }
 }

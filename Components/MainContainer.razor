@@ -1,3 +1,7 @@
+@inject AppState state
+@implements IDisposable
+@implements IObserver<TodoItem>
+
 <div id="main-content">
   <h2 class="main-title current-task-title">@CurrentTask</h2>
   <div class="timer-container">
@@ -6,6 +10,34 @@
 </div>
 
 @code {
+  
   [Parameter]
   public string CurrentTask { get; set; }
+  public IDisposable CurrentTaskSubscription { get; set; }
+
+
+  protected override void OnInitialized()
+  {
+    CurrentTaskSubscription = state.CurrentTask.Subscribe(this);
+  }
+
+  public virtual void OnCompleted()
+  {
+  }
+
+  public virtual void OnError(Exception e)
+  {
+  }
+
+  public virtual void OnNext(TodoItem newCurrentTask)
+  {
+    var newTitle = newCurrentTask?.Title ?? "None";
+    this.CurrentTask = newTitle;
+    StateHasChanged();
+  }
+
+  public void Dispose()
+  {
+    CurrentTaskSubscription?.Dispose();
+  }
 }
