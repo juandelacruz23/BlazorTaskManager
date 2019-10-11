@@ -1,0 +1,21 @@
+<div class="todo-input-container">
+  <input class="new-todo-input" placeholder="Something todo" @bind="newTodo" />
+  <button @onclick="AddTodo">Agregar</button>
+</div>
+
+@code {
+  private string newTodo;
+  [Parameter]
+  public EventCallback<TodoItem> OnAddTodo { get; set; }
+
+  private async void AddTodo()
+  {
+    if (!string.IsNullOrWhiteSpace(newTodo))
+    {
+      await OnAddTodo.InvokeAsync(new TodoItem{
+        Title = newTodo
+      });
+      newTodo = string.Empty;
+    }
+  }
+}

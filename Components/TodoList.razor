@@ -20,6 +20,7 @@
       </li>
     }
   </ul>
+  <TodoInput OnAddTodo="@OnAddTodo" />
 </div>
 
 @code {
@@ -48,5 +49,10 @@
   private void OnSelectItem(TodoItem item)
   {
     state.UpdateCurrentTask(item);
+  }
+
+  private void OnAddTodo(TodoItem newTodo)
+  {
+    Todos.Add(newTodo);
   }
 }

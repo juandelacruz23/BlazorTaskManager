@@ -35,10 +35,13 @@ app {
   background-color: var(--main-color);
   color: white;
   padding: var(--main-padding);
+  display: flex;
+  flex-direction: column;
 }
 
 #todo-list {
   padding: 0;
+  flex: 1;
 }
 
 .todo-item {
@@ -54,6 +57,20 @@ app {
 
 .todo-title {
   flex: 1;
+  margin: 0;
+  padding: 1em 0;
+}
+
+.todo-input-container {
+  display: flex;
+  align-items: center;
+}
+
+.new-todo-input {
+  padding: 0.7em;
+  border-radius: 5px;
+  flex: 1;
+  margin-right: 0.5em;
 }
 
 .count {
