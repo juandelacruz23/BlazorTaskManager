@@ -44,6 +44,7 @@ app {
 .todo-item {
   list-style: none;
   display: flex;
+  align-items: center;
 }
 
 .todo-item > p {
