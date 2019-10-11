@@ -18,6 +18,7 @@
 </div>
 
 @code {
+  private int POMODORO_SECONDS = 10;
   private bool isRunning;
   private int seconds;
   public IObservable<long> PomodoroObservable { get; set; } = Observable.Interval(TimeSpan.FromSeconds(1));
@@ -49,7 +50,7 @@
     if(isRunning) {
       StopSubscription();
     } else {
-      PomodoroSubscription = PomodoroObservable.Take(11).Subscribe(
+      PomodoroSubscription = PomodoroObservable.Take((POMODORO_SECONDS - seconds) + 1).Subscribe(
         x => IncreaseSeconds(),
         err => Console.WriteLine("On error: {0}", err.Message),
         OnComplete
